@@ -346,6 +346,18 @@ EnhancedVolcano <- function(
     toptable$lab <- names.new
   }
 
+  # Calculate counts for upregulated, downregulated, and total genes
+  upregulated <- sum(toptable[[x]] > FCcutoff & toptable[[pCutoffCol]] < pCutoff, na.rm = TRUE)
+  downregulated <- sum(toptable[[x]] < -FCcutoff & toptable[[pCutoffCol]] < pCutoff, na.rm = TRUE)
+  total <- nrow(toptable)
+
+  # Update caption to include these counts
+  caption <- paste0(
+    'upregulated = ', upregulated, ' genes, ',
+    'downregulated = ', downregulated, ' genes, ',
+    'Total = ', total, ' genes'
+  )
+
   # create a base theme that will later be modified
   th <- theme_bw(base_size = 24) +
 
